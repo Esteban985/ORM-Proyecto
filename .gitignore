@@ -1,0 +1,32 @@
+# Dependencias (Nunca se suben, pesan mucho y se reconstruyen con npm install)
+node_modules/
+jspm_packages/
+web_modules/
+
+# Variables de entorno y credenciales (¡SUPER IMPORTANTE! Contiene contraseñas y llaves de API)
+.env
+.env.local
+.env.*.local
+*.env
+
+# Archivos de configuración del sistema operativo o editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Carpetas de compilación o producción (Si usas TypeScript o herramientas de empaquetado)
+dist/
+build/
+out/
+
+# Logs y registros de errores
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Archivos temporales o subidas de usuarios (Si tu app de Express permite subir archivos)
+public/uploads/
+temp/
