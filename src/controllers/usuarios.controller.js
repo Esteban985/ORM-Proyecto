@@ -49,12 +49,26 @@ const createUsuario = async (req, res) => {
     const { nombre, email, password } = req.body;
     // Lógica para crear un nuevo usuario
     try {
-        await Usuario.create({ nombre, email, password })
+        const nuevoUsuario = new Usuario()
+        nuevoUsuario.nombre = nombre
+        nuevoUsuario.email = email
+        nuevoUsuario.password = password
+        await nuevoUsuario.hashPassword()
+        await nuevoUsuario.save()
 
         res.status(201).json({
             message: "Usuario creado correctamente"
         });
     } catch (error) {
+        if (error.name == 'SequelizeUniqueConstraintError') {
+
+            return res.status(400).json({
+                message: "El correo electrónico ya está registrado",
+                error: error.message
+            });
+
+        }
+
         res.status(500).json({
             message: "Error al crear el usuario",
             error: error.message
@@ -66,6 +80,14 @@ const updateUsuario = async (req, res) => {
     const { id } = req.params;
     const { nombre, email } = req.body;
     // Lógica para actualizar un usuario existente
+    const usuarioExistente = await Usuario.findOne({ where: { email } });
+    
+    if (usuarioExistente && usuarioExistente.id != id) {
+        return res.status(400).json({
+            message: "El correo electrónico ya está registrado"
+        });
+    }
+    
     try {
         const usuario = await Usuario.findByPk(id);
 

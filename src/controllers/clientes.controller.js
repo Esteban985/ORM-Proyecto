@@ -48,6 +48,15 @@ const createCliente = async (req, res) => {
             message: "Cliente creado correctamente"
         });
     } catch (error) {
+        if (error.name == 'SequelizeUniqueConstraintError') {
+
+            return res.status(400).json({
+                message: "El correo electrónico ya está registrado",
+                error: error.message
+            });
+
+        }
+
         res.status(500).json({
             message: "Error al crear el cliente",
             error: error.message
@@ -58,6 +67,15 @@ const createCliente = async (req, res) => {
 const updateCliente = async (req, res) => {
     const { id } = req.params;
     const { nombres, apellidos, correo_electronico, telefono, ciudad } = req.body;
+
+    const clienteExiste = await Cliente.findOne({ where: { correo_electronico } });
+
+    if (clienteExiste && clienteExiste.id != id) {
+        return res.status(400).json({
+            message: "El correo electrónico ya está registrado"
+        });
+    }
+
     try {
         const cliente = await Cliente.findByPk(id);
 

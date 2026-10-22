@@ -1,6 +1,8 @@
 import express from "express";
 import { usuariosRouter } from "./routes/usuarios.route.js";
 import { ClientesRouter } from "./routes/clientes.route.js";
+import { routerAuth } from "./routes/autenticacion.route.js";
+import { validarUsuario } from "./middlewares/validarUsuario.middleware.js";
 
 const app = express();
 
@@ -11,6 +13,11 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('¡Hola, mundo!');
 });
+
+app.use('/auth', routerAuth)
+
+app.use(validarUsuario)
+
 app.use('/usuarios', usuariosRouter)
 app.use('/clientes', ClientesRouter)
 
