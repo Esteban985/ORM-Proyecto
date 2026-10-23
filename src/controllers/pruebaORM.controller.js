@@ -24,4 +24,28 @@ const getUsuarioApellido = async (req, res) => {
     }
 }
 
-export { getUsuarioApellido };
+//Para obtener un usuario que la ciudad sea Quetzaltenango o Guatemala
+const getUsuarioCiudad = async (req, res) => {
+    try {
+        const usuarios = await Cliente.findAll({
+            where: {
+                ciudad: {
+                    [Op.in]: ['Quetzaltenango', 'Guatemala']
+                }
+            }
+        })
+
+        if (!usuarios) {
+            return res.status(404).json({ message: 'No se encontraron usuarios en las ciudades especificadas' });
+        }
+
+        res.status(200).json({
+            message: 'Usuarios encontrados en la ciudades especificadas',
+            data: usuarios
+        })
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los usuarios' })
+    }
+}
+
+export { getUsuarioApellido, getUsuarioCiudad };
