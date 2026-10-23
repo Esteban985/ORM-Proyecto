@@ -8,8 +8,8 @@ const usuariosRouter = Router();
 // Definir las rutas para los usuarios
 usuariosRouter.get('/', getUsuarios); // Obtener todos los usuarios
 usuariosRouter.get('/:id', getUsuarioById); // Obtener un usuario por ID
-usuariosRouter.post('/', validateSchemadMiddleware(createUsuarioSchema), createUsuario); // Crear un nuevo usuario
-usuariosRouter.put('/:id', validateSchemadMiddleware(updateUsuarioSchema), updateUsuario); // Actualizar un usuario existente
+usuariosRouter.post('/', validateSchemadMiddleware(createUsuarioSchema, 'body'), createUsuario); // Crear un nuevo usuario
+usuariosRouter.put('/:id', validateSchemadMiddleware(updateUsuarioSchema, 'body'), updateUsuario); // Actualizar un usuario existente
 usuariosRouter.delete('/:id', deleteUsuario); // Eliminar un usuario
 
 export { usuariosRouter };

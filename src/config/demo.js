@@ -15,6 +15,7 @@ const usuarioExistente = await Usuario.findOne({ where: { email } })
 //Op.lt: Menor que (less than)
 //Op.lte: Menor o igual que (less than or equal)
 //Op.like: Coincide con un patrón (like)
+//Op.iLike: Coincide con un patron sin diferenciar entre mayusculas o minusculas
 //Op.notLike: No coincide con un patrón (not like)
 //Op.in: Está en un conjunto de valores (in)
 //Op.notIn: No está en un conjunto de valores (not in)

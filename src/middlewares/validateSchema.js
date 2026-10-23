@@ -1,8 +1,8 @@
 import z from "zod"
 
-const validateSchemadMiddleware = (schema) => {
+const validateSchemadMiddleware = (schema, type) => {
     return (req, res, next) => {
-        const result = schema.safeParse(req.body)
+        const result = schema.safeParse(req[type])
 
         if (!result.success) {
             const errors = z.flattenError(result.error)

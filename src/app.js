@@ -4,6 +4,7 @@ import { ClientesRouter } from "./routes/clientes.route.js";
 import { routerAuth } from "./routes/autenticacion.route.js";
 import { validarUsuario } from "./middlewares/validarUsuario.middleware.js";
 import { pruebaORMRouter } from "./routes/pruebaORM.router.js";
+import { routerProductos } from "./routes/productos.route.js";
 
 const app = express();
 
@@ -22,5 +23,6 @@ app.use(validarUsuario)
 app.use('/usuarios', usuariosRouter)
 app.use('/clientes', ClientesRouter)
 app.use('/prueba-ORM', pruebaORMRouter)
+app.use('/api/productos', routerProductos)
 
 export default app;
