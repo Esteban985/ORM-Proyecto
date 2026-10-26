@@ -1,4 +1,4 @@
-import { Cliente } from "../models/Clientes.js";
+import { Cliente } from "../models/index.js";
 
 const getClientes = async (req, res) => {
     try {
